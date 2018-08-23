@@ -1,0 +1,84 @@
+# config context path to "/" by setting an empty string
+server:
+    contextPath:
+---
+############################################ DEVELOPMENT ################################################
+spring:
+  profiles: development
+  datasource:
+    url: jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate.ddl-auto: create-drop
+  activemq:
+    packages:
+      trust-all: true
+  
+  jackson:
+    serialization:
+      indent-output: true
+#server:
+  #address: 127.0.0.1
+ 
+jackson:
+    serialization:
+    INDENT_OUTPUT: true 
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 100000
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+      
+ 
+logging:
+  level:
+    org.springframework:
+    security: DEBUG
+---
+
+############################################ PRODUCTION ################################################
+
+
+spring:
+  profiles: production
+  datasource:
+    #url: jdbc:mysql://localhost:3306/demo_db?autoReconnect=true&verifyServerCertificate=false&useSSL=true
+    url: jdbc:mysql://bgdb.cdkcd5lagqki.us-east-2.rds.amazonaws.com:3306/bgdb?autoReconnect=true&verifyServerCertificate=false&useSSL=true
+    driverClassName: com.mysql.jdbc.Driver
+    username: alok25999
+    password: wth261200
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    #hibernate.ddl-auto: update
+
+jackson:
+    serialization:
+    INDENT_OUTPUT: true 
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 1000
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+      
+ 
+logging:
+  level:
+    org.springframework:
+    security: DEBUG
+############################################################################################
